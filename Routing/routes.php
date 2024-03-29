@@ -9,11 +9,16 @@ use Response\Render\JSONRenderer;
 
 return [
     ''=>function(): HTTPRenderer{
-        $part = DatabaseHelper::getRandomComputerPart();
+        //期限切れのスニペットを削除する
+        DatabaseHelper::deleteExpiredSnippet();
 
-        return new HTMLRenderer('list', ['part'=>$part]);
+       // $part = DatabaseHelper::getRandomComputerPart();
+        
+       //['part'=>$part]
+        return new HTMLRenderer('list');
     },
     'list'=>function(): HTTPRenderer{
+
         $snippets = DatabaseHelper::getAllSnippet();
 
         return new HTMLRenderer('list', ['snippets'=>$snippets]);
@@ -54,6 +59,11 @@ return [
       
         
     },
+    'show' => function (): HTTPRenderer {
+        // 指定されたスニペットの表示ページ
+
+        return new HTMLRenderer('show-snippet', []);
+    }
     // 'random/part'=>function(): HTTPRenderer{
     //     $part = DatabaseHelper::getRandomComputerPart();
 

@@ -20,7 +20,7 @@ $stmt = $db->prepare("SELECT * FROM PasteContent");
                 <ul class="list-group">
                     <?php foreach ($snippets as $snippet): ?>
                         <li class="list-group-item">
-                            <a href="/show?uid=<?= htmlspecialchars($snippet['id']) ?>" class="text-decoration-none">
+                            <a href="/show?path=<?= htmlspecialchars($snippet['url']) ?>" class="text-decoration-none">
                                 <h5><?= htmlspecialchars($snippet['content']) ?></h5>
                                 <small>Syntax: <?= htmlspecialchars($snippet['url']) ?></small><br>
                                 <small>Expire: <?= $snippet['expired_limit'] ? htmlspecialchars($snippet['expire_datetime']) : "Never" ?></small>

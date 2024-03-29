@@ -15,7 +15,7 @@ class CreatePasteContentTable implements SchemaMigration
             content TEXT,
             url varchar(256),
             syntax VARCHAR(50),
-            expired_limit DATE,
+            expired_limit DATETIME,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );"];

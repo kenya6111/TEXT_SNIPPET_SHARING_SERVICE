@@ -15,7 +15,7 @@ class DatabaseHelper
         $result = $stmt->get_result();
         $part = $result->fetch_assoc();
 
-        if (!$part) throw new Exception('Could not find a single part in database');
+        //if (!$part) throw new Exception('Could not find a single part in database');
 
         return $part;
     }
@@ -33,6 +33,15 @@ class DatabaseHelper
         if (!$part) throw new Exception('Could not find a single part in database');
 
         return $part;
+    }
+
+    public static function deleteExpiredSnippet(): void{
+        $db = new MySQLWrapper();
+        $today = date("Y-m-d H:i:s");
+
+        $stmt = $db->prepare("DELETE FROM PasteContent WHERE expired_limit < ? ");
+        $stmt->bind_param("s", $today);
+        $stmt->execute();
     }
 
     public static function insertSnippet($title,$text,  $syntax, $expireDatetime): array {
@@ -69,8 +78,16 @@ class DatabaseHelper
         $length = 16;
         $random_string = str_shuffle($characters);
         $random_string = substr($random_string, 0, $length);
-        $date="2024/10/10";
-
+        $date='';
+        if($expireDatetime=='tenMin'){
+            $date=date("Y/m/d H:i:s", strtotime("10 min"));
+        }else if($expireDatetime=='oneHour'){
+            $date=date("Y/m/d H:i:s", strtotime("1 hour"));
+        }else if($expireDatetime=='oneDay'){
+            $date=date("Y/m/d H:i:s", strtotime("1 day"));
+        }else{
+            $date=null;
+        }
            // バインドパラメータ
         $stmt->bind_param("sssss", $title,$text,$random_string,$syntax, $date);
         $stmt->execute();

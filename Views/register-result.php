@@ -9,7 +9,7 @@
         
         
         // 完全なURLを組み立てる
-        $linkUrl = $protocol . '://' . $host."/show". $url;
+        $linkUrl = $protocol . '://' . $host."/show?path=". $url;
 
 ?>
 <div>
