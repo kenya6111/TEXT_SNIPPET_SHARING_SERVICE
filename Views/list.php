@@ -11,6 +11,7 @@ $stmt = $db->prepare("SELECT * FROM PasteContent");
 ?>
 
 
+
 <div class="container">
     <div class="row">
         <div class="col">
